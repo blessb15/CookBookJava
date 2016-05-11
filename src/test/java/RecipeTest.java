@@ -79,10 +79,18 @@ public class RecipeTest {
   public void Recipe_getIngredientsReturnsAll(){
     ArrayList<Ingredient> ingredients = new ArrayList();
     Recipe newRecipe = new Recipe("Drunken Noodles", ingredients);
-
     newRecipe.save();
     newRecipe.addIngredient("noodles");
-    assertEquals("noodles", newRecipe.getIngredients().get(0).getName());
+    assertEquals("noodles", newRecipe.getIngredientsWithData().get(0).getName());
+  }
+
+  @Test
+  public void Recipe_getRating(){
+    ArrayList<Ingredient> ingredients = new ArrayList();
+    Recipe newRecipe = new Recipe("Drunken Noodles", ingredients);
+    newRecipe.save();
+    newRecipe.rate(5);
+    assertTrue(newRecipe.getRating() == 5);
   }
 
 }

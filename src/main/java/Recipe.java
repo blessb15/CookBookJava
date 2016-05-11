@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Recipe {
   private String name;
-  private int rating = 10;
+  private int rating;
   private static int id;
   private ArrayList<Ingredient> recipeIngredients = new ArrayList();
 
@@ -22,7 +22,13 @@ public class Recipe {
   }
 
   public void rate(int num){
-    rating = num;
+    this.rating = num;
+    try(Connection con = DB.sql2o.open()){
+      String sql = "INSERT INTO recipes (rating) VALUES (:rating)";
+      con.createQuery(sql)
+      .addParameter("rating", num)
+      .executeUpdate();
+    }
   } // TEST THIS
 
   public int getRating(){
@@ -87,8 +93,24 @@ public class Recipe {
     }
   }
 
-  public ArrayList<Ingredient> getIngredients(){
-    return recipeIngredients;
+  public List<Ingredient> getIngredientsWithData(){
+    try(Connection con = DB.sql2o.open()) {
+      String joinQuery = "SELECT ingredient_id FROM cookbook WHERE recipe_id = :recipe_id";
+      List<Integer> ingredient_ids = con.createQuery(joinQuery)
+      .addParameter("recipe_id", this.getId())
+      .executeAndFetch(Integer.class);
+
+      List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+      for(Integer ingredient_id : ingredient_ids) {
+        String sql = "SELECT * FROM ingredients WHERE id = :ingredient_id";
+        Ingredient ingredient = con.createQuery(sql)
+        .addParameter("ingredient_id", ingredient_id)
+        .executeAndFetchFirst(Ingredient.class);
+        ingredients.add(ingredient);
+      }
+      return ingredients;
+    }
   }
 
 }
