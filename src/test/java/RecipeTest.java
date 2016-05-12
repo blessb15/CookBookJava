@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import org.junit.*;
 import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.*;
 
 public class RecipeTest {
@@ -21,73 +22,45 @@ public class RecipeTest {
 
   @Test
   public void Recipe_recipeInstantiatesCorrectly_true() {
-    ArrayList<Ingredient> ingredients = new ArrayList();
-    Ingredient newIngredient = new Ingredient("soy sauce");
-    Ingredient anotherIngredient = new Ingredient("butter");
-    newIngredient.save();
-    anotherIngredient.save();
-    ingredients.add(newIngredient);
-    ingredients.add(anotherIngredient);
-    Recipe newRecipe = new Recipe("Drunken Noodles", ingredients);
+    Recipe newRecipe = new Recipe("Drunken Noodles");
     newRecipe.save();
     assertTrue(newRecipe instanceof Recipe);
   }
 
   @Test
   public void Recipe_GetName() {
-    ArrayList<Ingredient> ingredients = new ArrayList();
-    Ingredient newIngredient = new Ingredient("soy sauce");
-    Ingredient anotherIngredient = new Ingredient("butter");
-    newIngredient.save();
-    anotherIngredient.save();
-    ingredients.add(newIngredient);
-    ingredients.add(anotherIngredient);
-    Recipe newRecipe = new Recipe("Drunken Noodles", ingredients);
+    Recipe newRecipe = new Recipe("Drunken Noodles");
     newRecipe.save();
     assertEquals("Drunken Noodles", newRecipe.getName());
   }
 
   @Test
   public void Recipe_recipeSavesToDatabase(){
-    ArrayList<Ingredient> ingredients = new ArrayList();
-    Ingredient newIngredient = new Ingredient("soy sauce");
-    Ingredient anotherIngredient = new Ingredient("butter");
-    newIngredient.save();
-    anotherIngredient.save();
-    ingredients.add(newIngredient);
-    ingredients.add(anotherIngredient);
-    Recipe newRecipe = new Recipe("Drunken Noodles", ingredients);
+    Recipe newRecipe = new Recipe("Drunken Noodles");
     newRecipe.save();
     assertEquals(newRecipe, Recipe.find(newRecipe.getId()));
   }
 
   @Test
   public void Recipe_allReturnsAll(){
-    ArrayList<Ingredient> ingredients = new ArrayList();
-    Ingredient newIngredient = new Ingredient("soy sauce");
-    Ingredient anotherIngredient = new Ingredient("butter");
-    newIngredient.save();
-    anotherIngredient.save();
-    ingredients.add(newIngredient);
-    ingredients.add(anotherIngredient);
-    Recipe newRecipe = new Recipe("Drunken Noodles", ingredients);
+    Recipe newRecipe = new Recipe("Drunken Noodles");
     newRecipe.save();
     assertEquals(1, Recipe.all().size());
   }
 
   @Test
-  public void Recipe_getIngredientsReturnsAll(){
-    ArrayList<Ingredient> ingredients = new ArrayList();
-    Recipe newRecipe = new Recipe("Drunken Noodles", ingredients);
+  public void Recipe_addIngredients(){
+    Ingredient newIngredient = new Ingredient("soy sauce, butter");
+    newIngredient.save();
+    Recipe newRecipe = new Recipe("Drunken Noodles");
     newRecipe.save();
-    newRecipe.addIngredient("noodles");
-    assertEquals("noodles", newRecipe.getIngredientsWithData().get(0).getName());
+    newRecipe.addIngredient(newIngredient);
+    assertTrue(newRecipe.getIngredients().size() == 1);
   }
 
   @Test
   public void Recipe_getRating(){
-    ArrayList<Ingredient> ingredients = new ArrayList();
-    Recipe newRecipe = new Recipe("Drunken Noodles", ingredients);
+    Recipe newRecipe = new Recipe("Drunken Noodles");
     newRecipe.save();
     newRecipe.rate(5);
     assertTrue(newRecipe.getRating() == 5);
