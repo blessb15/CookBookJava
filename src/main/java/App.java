@@ -32,6 +32,7 @@ public class App {
         Recipe newRecipe = new Recipe(userInputName, userInputDirections);
         newRecipe.save();
         Category newCategory = new Category(userInputCategory);
+        newRecipe.addCategory(newCategory);
         Ingredient newIngredient1 = new Ingredient(userInputIngredient1);
         newIngredient1.save();
         newRecipe.addIngredient(newIngredient1);
