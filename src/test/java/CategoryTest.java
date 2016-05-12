@@ -26,5 +26,4 @@ public class CategoryTest {
     newCategory.save();
     assertTrue(newCategory instanceof Category);
   }
-
 }

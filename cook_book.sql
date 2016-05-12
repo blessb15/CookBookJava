@@ -174,7 +174,8 @@ ALTER SEQUENCE ingredients_id_seq OWNED BY ingredients.id;
 CREATE TABLE recipes (
     id integer NOT NULL,
     name character varying,
-    rating integer
+    rating integer,
+    instructions character varying
 );
 
 
@@ -340,7 +341,7 @@ SELECT pg_catalog.setval('ingredients_id_seq', 1, false);
 -- Data for Name: recipes; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY recipes (id, name, rating) FROM stdin;
+COPY recipes (id, name, rating, instructions) FROM stdin;
 \.
 
 
