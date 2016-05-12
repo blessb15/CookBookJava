@@ -1,12 +1,46 @@
-<div class="container">
-  <h1>Blank</h1>
-  <p></p>
-
-  <form action='/detector' method='get'>
+<div class="row">
+  <h1>Cook Book</h1>
+  <h2>An online repository for your favorite recipes</h2>
+  <br>
+  <br>
+  <h2>Your Recipes:</h2>
+  #foreach( $recipe in $recipes )
+    <li><a href="/recipe/$recipe.getId()">$recipe.getName()</a></li>
+  #end
+  <br>
+  <br>
+  <form action='/recipes' method='post'>
+  	<h2>Add a name, ingredients, directions and a category below</h2>
     <div class="form-group">
-      <label for="blank">Blank</label>
-      <input id="blank" name="blank" class="form-control" type="text">
+      <label for="name">name</label>
+      <input id="name" name="name" class="form-control" type="text">
     </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input id="category" name="category" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label for="ingredient1">ingredient1</label>
+      <input id="ingredient1" name="ingredient1" class="form-control" type="text">
+    </div><div class="form-group">
+      <label for="ingredient2">ingredient2</label>
+      <input id="ingredient2" name="ingredient2" class="form-control" type="text">
+    </div><div class="form-group">
+      <label for="ingredient3">ingredient3</label>
+      <input id="ingredient3" name="ingredient3" class="form-control" type="text">
+    </div><div class="form-group">
+      <label for="ingredient4">ingredient4</label>
+      <input id="ingredient4" name="ingredient4" class="form-control" type="text">
+    </div>
+    </div><div class="form-group">
+      <label for="ingredient5">ingredient5</label>
+      <input id="ingredient5" name="ingredient5" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label for="directions">directions</label>
+      <textarea id="directions" name="directions" class="form-control" type="text"></textarea>
+    </div>
+
 
     <button type="submit" class="btn btn-info">Submit</button>
   </form>
