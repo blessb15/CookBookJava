@@ -11,9 +11,19 @@ public class Category {
   public int getId(){
     return id;
   }
-  
+
   public String getName(){
     return name;
+  }
+
+  @Override
+  public boolean equals(Object otherCategory) {
+    if (!(otherCategory instanceof Category)){
+      return false;
+    } else {
+      Category newCategory = (Category) otherCategory;
+      return newCategory.getName().equals(this.getName()) && newCategory.getId() == (this.getId());
+    }
   }
 
   public void save(){

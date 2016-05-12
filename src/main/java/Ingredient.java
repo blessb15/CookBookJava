@@ -42,7 +42,7 @@ public class Ingredient {
       return false;
     } else {
       Ingredient newIngredient = (Ingredient) otherIngredient;
-      return newIngredient.getName().equals(this.getName());
+      return newIngredient.getName().equals(this.getName()) && newIngredient.getId() == (this.getId());
     }
   }
 
